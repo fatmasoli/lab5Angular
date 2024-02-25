@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "id": "f8f1",
+      "name": "lab top",
+      "price": 3828,
+      "category": "electronics"
+    },
+    {
+      "id": "74fb",
+      "name": "hard disk",
+      "price": 343,
+      "category": "electronics"
+    },
+    {
+      "id": "0f06",
+      "name": "green blouse",
+      "price": 567,
+      "category": "clothes"
+    },
+    {
+      "id": "ac95",
+      "name": "Ring",
+      "price": 45678,
+      "category": "jwlary"
+    }
+  ]
+}

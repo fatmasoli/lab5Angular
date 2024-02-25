@@ -1,0 +1,120 @@
+<h2>{{ updateDone ? "Update Product" : "Add Product" }}</h2>
+
+<div class="container">
+  <div class="card mb-4">
+    <div class="card-header">{{ updateDone ? "Update Product" : "Add Product" }}</div>
+    <div class="card-body">
+      <form #FormProduct="ngForm" (ngSubmit)="updateDone ? updateProduct() : addProduct()">
+        <div class="mb-3">
+          <label for="name" class="form-label">Product Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="Name (required)"
+            required
+            name="name"
+            [(ngModel)]="product.name"
+            #nameInput="ngModel"
+            [ngClass]="{'is-invalid': (nameInput.touched || nameInput.dirty) && !nameInput.valid}"
+            minlength="3"
+          />
+          <div class="invalid-feedback">
+            @if(nameInput.errors?.['required']) {
+              <span>Name is required</span>
+            }
+            @if(nameInput.errors?.['minlength']) {
+              <span>Name should be at least 3 characters</span>
+            }
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="price" class="form-label">Price</label>
+          <input
+            type="number"
+            class="form-control"
+            id="price"
+            placeholder="Price (required)"
+            required
+            name="price"
+            [(ngModel)]="product.price"
+            #priceInput="ngModel"
+            [ngClass]="{'is-invalid': (priceInput.touched || priceInput.dirty) && !priceInput.valid}"
+          />
+          <div class="invalid-feedback">
+            @if(priceInput.errors?.['required']) {
+              <span>Price is required</span>
+            }
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="category" class="form-label">Category</label>
+          <select
+            class="form-select"
+            id="category"
+            name="category"
+            [(ngModel)]="product.category"
+            #categoryInput="ngModel"
+            [ngClass]="{'is-invalid': (categoryInput.touched || categoryInput.dirty) && !categoryInput.valid}"
+          >
+            <option value="" selected> All product</option>
+            <option value="clothes"> clothes</option>
+            <option value="electronics"> electronics</option>
+            <option value="jwlary"> jwlary </option>
+          </select>
+          <div class="invalid-feedback">
+            @if(categoryInput.errors?.['required']) {
+              <span>Category is required</span>
+            }
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-success"
+          [disabled]="!FormProduct.valid"
+        >
+          {{ updateDone ? "Update Product" : "Add Product" }}
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <a class="btn btn-success btn-sm" routerLink="/order">Add Product</a>
+</div>
+
+<br /><br />
+
+<h1>Product Items</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Product id</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Product Price</th>
+      <th scope="col">Product category</th>
+      <th scope="col">EDIT</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(item of insertproduct; track item.id) {
+      <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.price }}</td>
+        <td>{{ item.category }}</td>
+        <td><button (click)="updateProductBtn(item.id)" class="btn btn-success"> Update</button></td>
+        <td><button class="btn btn-warning"(click)="deleteprod(item.id)">Delete Product</button></td>
+      </tr>
+    }
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="2"><strong>Total products:</strong></td>
+      <!-- <td><strong>{{ allproducts()}}</strong></td> -->
+    </tr>
+  </tfoot>
+</table>
